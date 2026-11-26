@@ -24,13 +24,22 @@ ingredients_list = st.multiselect(
 )
 
 
-if ingredients_list : 
+# if ingredients_list : 
+#     ingredients_string = ''
+#     for fruit_Chosen in ingredients_list:
+#         ingredients_string += fruit_Chosen + ' '
+#         st.subheader(fruit_chosen + ' Nutrition Information')
+#         smoothiefruit_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen) 
+#         sf_df = st.dataframe(data = smoothiefruit_response.json(), use_container_width = True )
+  if ingredients_list:
     ingredients_string = ''
-    for fruit_Chosen in ingredients_list:
-        ingredients_string += fruit_Chosen + ' '
+
+    for fruit_chosen in ingredients_list:
+        ingredients_string += fruit_chosen + ' '
         st.subheader(fruit_chosen + ' Nutrition Information')
-        smoothiefruit_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen) 
-        sf_df = st.dataframe(data = smoothiefruit_response.json(), use_container_width = True )
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+
 
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
                     values ('""" + ingredients_string + """','""" +name_on_order+ """')"""
